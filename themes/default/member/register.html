@@ -1,0 +1,37 @@
+{template 'common/header'}
+	<div id="main-single" class="container-12 form horizontal">
+        <form action="" method="post">
+	        <h5>注册新用户</h5>
+            <dl class="clearfix">
+                <dt>用户名</dt>
+                <dd><input autocomplete="off" type="text" name="username" class="txt grid-2" /></dd>
+                <dd>请输入用户名，用户名为 3 到 15 个字符组成，包括汉字，大小写字母（不区分大小写）。</dd>
+            </dl>
+            <dl class="clearfix">
+                <dt>密码</dt>
+                <dd><input type="password" name="password" class="txt grid-2" /></dd>
+                <dd>请填写密码，最小长度为 8 个字符</dd>
+            </dl>
+            <dl class="clearfix">
+                <dt>确认密码</dt>
+                <dd><input type="password" id="repassword" class="txt grid-2" /></dd>
+                <dd>重复输入密码，确认正确输入</dd>
+            </dl>
+            <dl class="clearfix">
+                <dt>邮箱</dt>
+                <dd><input autocomplete="off" type="text" name="email" class="txt grid-3" /></dd>
+                <dd>请输入正确的邮箱</dd>
+            </dl>
+            <dl class="clearfix">
+                <dt></dt>
+                <dd><div class="grid-3" style="color:#000;"><div class="fl" style="margin:1px 10px auto auto;"><input type="checkbox" id="protocol" /></a></div><div class="fl">同意 &nbsp; <a href="javascript:;">网站服务条款</a></div></div></dd>
+                <dd>请仔细阅读网站服务协议，接受服务协议才继续注册</dd>
+            </dl>
+            <dl class="clearfix">
+                <dt></dt>
+                <dd><input type="submit" name="submit" class="btn grid-2" value="确认注册"/><input type="hidden" name="token" value="{$_W['token']}" /> &nbsp; <div class="fl" style="margin:12px auto auto 10px;">已有帐号，请 &nbsp; <a href="./member.php?act=login">登录</a></div></dd>
+                <dd></dd>
+            </dl>
+        </form>
+	</div>
+{template 'common/footer'}

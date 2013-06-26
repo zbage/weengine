@@ -1,0 +1,20 @@
+{template 'common/header'}
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            {template 'help/nav'}
+        </div>
+        <div class="column1 grid-10 alpha omega" style="font-size:14px;">
+            <div class="form">
+                <h6>开通微信公众平台</h6>
+                <ul class="help-list">
+                    <li>点击导航上方的“微信公众平台”或直接输入网址<a target="_blank" href="http://mp.weixin.qq.com/">http://mp.weixin.qq.com/</a>访问。</li>
+                    <li>“微信公众平台”是使用“QQ号”作为登录帐号的，您可以使用已有的帐号或是重新注册一个新的QQ号来登录平台。</li>
+                    <li>登录成功后，“输入账号基本信息”点击“确定”开通“微信公众平台”。如图：
+                    <!--p class="mt10"><img src="./resource/image/help/help_1.jpg" width="700" /></p--></li>
+                    <li>至此，“微信公众平台”已经开通，请查看如何“<a href="{php echo create_url('index/help', array('do' => 'wx_bind'))}">绑定微信公众帐号</a>”</li>
+                </ul>
+				
+            </div>
+        </div>
+    </div>
+{template 'common/footer'}

@@ -1,0 +1,20 @@
+{template 'common/header'}
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            {template 'help/nav'}
+        </div>
+        <div class="column1 grid-10 alpha omega" style="font-size:14px;">
+            <div class="form">
+               <h6>什么是微信Token？</h6>
+                <ul class="help-list">
+                    <li>是沟通“微信公众平”与本系统之间的标识、密码。Token仅由您个人知道，并设置在“微信公众平台”中，保持与本系统中设置的一致。</li>
+                </ul>
+                <h6 class="mt20">设置微信Token</h6>
+                <ul class="help-list">
+                    <li><a href="{php echo create_url('account/display')}" target="_blank">设置微信Token</a></li>
+                    <li>当您注册本系统时，系统会自动为您产生一个唯一的Token值，通常情况下您不需要更改此值。如果需要更改，请设置3-30之间的字母、数字字符。并保证与“微信公众平台”中的一致。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{template 'common/footer'}

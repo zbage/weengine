@@ -1,0 +1,27 @@
+{template 'common/header'}
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            {template 'setting/nav'}
+        </div>
+        <div class="column1 grid-10 alpha omega modules">
+            <div class="form">
+            	<div class="form_h">
+            		<h6>{$module['title']}设置</h6>
+				</div>
+                <form action="" method="post">
+				{php $moduleobj->settingsFormDisplay($module['settings']);}	
+                <table border="0" cellspacing="0" cellpadding="0" width="100%">
+				<tr>
+                	<th></th>
+                    <td>
+						<input name="submit" type="submit" value="提交" class="mt10 btn grid-2 alpha" />
+						<input type="hidden" name="token" value="{$_W['token']}" />
+                        <input type="hidden" name="mid" value="{$mid}" />
+					</td>
+				</tr>
+				</table>
+               	</form>
+            </div>
+        </div>
+    </div>
+{template 'common/footer'}

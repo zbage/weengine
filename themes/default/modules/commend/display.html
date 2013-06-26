@@ -1,0 +1,120 @@
+<h6 class="mt20">推荐的热卖产品</h6>
+<div class="mt10">当用户对话的内容符合您在上方设置的规则时, 系统会自动返回下边定义的促销商品信息给买家会员. 商品信息可以设置多条, 对话时将随机取一条返回. </div>
+<div id="append-list" class="list">
+    {loop $ds $row}
+    <div class="item clearfix">
+        <div class="content">
+            <div id="news-add-form" class="form">
+                <h6 class="mt10">请输入产品编号</h6>
+                <input type="text" name="iid[]" viewtext="true" class="txt grid-4 alpha pin" value="{$row['iid']}" /> <a href="javascript:;" onclick="query($(this).prev());">查询</a>
+                <h6 class="mt10 title-panel">产品名称</h6>
+                <div class="mt10 title title-panel"><a href="http://detail.tmall.com/item.htm?id={$row['iid']}" target="_blank">{$row['title']}</a></div>
+                <input type="hidden" name="title[]" value="{$row['title']}" class="txt grid-4 alpha pin">
+                <h6 class="mt20 image-panel">产品图片</h6>
+                <div class="mt10 image image-panel"><a href="http://detail.tmall.com/item.htm?id={$row['iid']}" target="_blank"><img src="{$row['image']}" title="{$row['title']}" alt="{$row['title']}" width="80"/></a></div>
+                <input type="hidden" name="image[]" class="txt grid-4 alpha pin" value="{$row['image']}" />
+                <h6 class="mt10 description-panel">促销描述</h6>
+                <textarea name="description[]" cols="50" class="txt content description-panel" style="height:50px;">{$row['description']}</textarea>
+            </div>
+            <input type="button" value="删除这个产品" onclick="$(this).parent().parent().remove()" class="mt10 btn alpha" style="margin-left:20px;" />
+        </div>
+    </div>
+    {/loop}
+</div>
+<div class="item clearfix">
+    <input name="news-add" type="button" value="再添一条" onclick="add_row()" class="mt10 btn alpha" style="margin-left:20px" />
+</div>
+<div id="add-row" class="item clearfix" style="display:none;">
+    <div class="content">
+        <div id="news-add-form" class="form">
+            <h6 class="mt10">请输入产品编号</h6>
+            <input type="text" name="iid[]" viewtext="true" class="txt grid-4 alpha pin" value="" /> <a href="javascript:;" onclick="query($(this).prev());">查询</a>
+            <h6 class="mt10 title-panel" style="display:none;">产品名称</h6>
+            <div class="mt10 title title-panel" style="display:none;"></div>
+            <input type="hidden" name="title[]" class="txt grid-4 alpha pin">
+            <h6 class="mt20 image-panel" style="display:none;">产品图片</h6>
+            <div class="mt10 image image-panel" style="display:none;"></div>
+            <input type="hidden" name="image[]" class="txt grid-4 alpha pin" value="" />
+            <h6 class="mt10 description-panel" style="display:none;">促销描述</h6>
+            <textarea name="description[]" cols="50" class="txt content description-panel" style="display:none;height:50px;"></textarea>
+        </div>
+        <input type="button" value="删除这个产品" onclick="$(this).parent().parent().remove()" class="mt10 btn alpha" style="margin-left:20px;" />
+    </div>
+</div>
+<script type="text/javascript">
+//显示一个添加对话框，id为 xxx-add-dialog
+function add_row() {
+    if($("#append-list :text[name='iid[]']").length > 9) {
+        alert('至多只能包含 10 条推荐信息. ');
+        return;
+    }
+    var row = $('#add-row').clone();
+    var itemid = Math.random();
+    row.attr('id', 'add-row-clone-'+itemid);
+    //初始化表单值
+    row.find(':text').val('');
+    row.find('input[type="hidden"]').val('');
+    row.find('textarea').val('');
+    row.css('display', 'block');
+    $('#append-list').append(row);
+}
+{if empty($rid)}
+add_row();
+{else}
+$('#append-list :text[name="iid[]"]').data('ready', true);
+{/if}
+
+function query(o) {
+    var iid = $(o).val();
+    if(!/^\d{10,}$/.test(iid)) {
+        return;
+    }
+    var cancel = false;
+    $('#append-list :text[name="iid[]"]').each(function(){
+        if($(this).val() == iid && this != $(o)[0]) {
+            cancel = true;
+            return false;
+        }
+    });
+    if(cancel) {
+        alert('没必要添加重复的产品。');
+        return;
+    }
+    $(o).nextAll('.title-panel').hide();
+    $(o).nextAll('.image-panel').hide();
+    $(o).nextAll('.description-panel').hide();
+    $(o).data('ready', false);
+    $.getJSON('./setting.php?act=module&do=display&name=commend&extend=query', {iid:iid}, function(json){
+        if(json == null) {
+            alert('没有找到相关产品，请确定你的产品编号无误。');
+            return;
+        }
+        $(o).data('ready', true);
+        $(o).nextAll('.title-panel').show();
+        $(o).nextAll('.title').html('<a href="http://detail.tmall.com/item.htm?id=' + iid + '" target="_blank">' + json.title + '</a>');
+        $(o).nextAll(':hidden[name="title[]"]').val(json.title);
+        $(o).nextAll('.image-panel').show();
+        $(o).nextAll('.image').html('<a href="http://detail.tmall.com/item.htm?id=' + iid + '" target="_blank"><img src="' + json.image + '" title="' + json.title + '" alt="' + json.title + '" width="80" /></a>');
+        $(o).nextAll(':hidden[name="image[]"]').val(json.image);
+        $(o).nextAll('.description-panel').show();
+    });
+}
+
+formCheckers.push(function(){
+    var c = 0;
+    $('#append-list :text[name="iid[]"]').each(function(){
+        if($(this).data('ready') !== true) {
+            $(this).find(':text').val('');
+            $(this).find('input[type="hidden"]').val('');
+            $(this).find('textarea').val('');
+        } else {
+            c++;
+        }
+    });
+    if(c == 0) {
+        message('没有有效的推荐产品，请确认。添加推荐产品时需要你填写好产品编号，点击查询按钮，系统查找到你店铺的对应产品才行。');
+        return false;
+    }
+    return true;
+});
+</script>

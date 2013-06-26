@@ -1,0 +1,165 @@
+<script type="text/javascript" src="./resource/script/jquery.jplayer.min.js"></script>
+<link type="text/css" rel="stylesheet" href="./resource/script/kindeditor/themes/default/default.css" />
+<link type="text/css" rel="stylesheet" href="./source/modules/music/template/modules.css" />
+<style>
+.off span.fr{padding:5px 0;}
+.off #music_off{display:block;}
+.off #item-main{display:none;}
+.on span.fr{padding:0;}
+.on #music_off{display:none;}
+.on #item-main{display:block;}
+.on .open_music{display:none;}
+.on #music_off{display:inline; overflow:inherit; padding:0;}
+.on #music_off .music_title{display:none;}
+.new_add #music_off .music_button{display:none;}
+#music_off{padding:5px 0; overflow:hidden; position:relative; vertical-align:middle;}
+#music_off .music_button{display:block; background:url('./resource/image/music_button.png') no-repeat transparent; width:20px; height:20px; float:left; margin-right:10px; cursor:pointer; overflow:hidden; vertical-align:middle;}
+#music_off .music_play{background-position:0 -18px;}
+#music_off .music_stop{background-position:0 2px;}
+</style>
+<div id="append-list" class="list">
+{if !empty($list)}
+	{loop $list $item}
+	{php include $this->template('music:item')}
+	{/loop}
+{/if}
+</div>
+<div class="item clearfix">
+    <input name="music-add" type="button" value="添加音乐消息" onclick="add_row('append-list')" class="btn alpha" style="width:100%">
+</div>
+<script type="text/javascript">
+{if empty($list)}
+add_row('append-list');
+{else}
+$('#append-list .item').each(function(){
+	kindeditor_upload_music($(this).find('#item-attach')[0]);	
+});
+{/if}
+//<![CDATA[
+$(function() {
+	//edit_row
+	$("#append-list").delegate(".open_music", "click", function(){	
+		$(".open_music").each(function() {
+			var music_title = $(this).parent().parent(".item").find("#item-main input:eq(0)").val();
+			if(ignoreSpaces(music_title).length == 0) var music_title = "<span style='color:red;'>标题为空，请填写！</span>";
+			$(this).parent().parent(".item").find("#music_off .music_title").html(music_title);
+
+			var music_url = $(this).parent().parent(".item").find("#item-main #item-url").val();
+			$(this).parent().parent(".item").find("#music_off .music_button").attr("music_url", music_url);
+
+			$(this).parent().parent().removeClass("on").addClass("off");
+		});
+		$(this).parent().parent().removeClass("off").addClass("on");
+	});
+	//music_button
+	$("#append-list").delegate(".music_button", "click", function(){
+		var music_switch = $(this).attr("music_switch");
+		var jp = $("#"+$(this).parent("#music_off").find(".jp:first").attr("id"));
+		if($(this).attr("music_url").indexOf("http://") == -1) {
+			var _setMedia = {mp3: '{$_W[attachurl]}'+$(this).attr("music_url")};
+		} else {
+			var _setMedia = {mp3: $(this).attr("music_url")};
+		}
+		//初始化
+		jp.jPlayer({
+			ready: function(event) {
+				jp.jPlayer("setMedia", _setMedia).jPlayer("play");
+			},
+			swfPath: "./resource/script",
+			wmode: "window"
+			//solution: "flash, html"
+		})
+		.bind($.jPlayer.event.play, function() {
+			$(this).jPlayer("pauseOthers");
+		});
+		music_off_all();
+		if(music_switch == 1) {
+			jp.jPlayer("play");
+			$(this).removeClass("music_play").addClass("music_stop");
+			$(this).attr("music_switch", "0");
+		} else {
+			jp.jPlayer("stop");
+			$(this).removeClass("music_stop").addClass("music_play");
+			$(this).attr("music_switch", "1");
+		}
+	});
+});
+//]]>
+function music_off_all() { //关闭所有音乐
+	$("#append-list #music_off").each(function() {
+		//$(this).find("#jp").jPlayer("stop");
+		$(this).find(".music_button").removeClass("music_stop").addClass("music_play");
+		$(this).find(".music_button").attr("music_switch", "1");
+	});
+}
+function add_row() {
+	$.getJSON('{php echo create_url('index/module/formdisplay', array('name' => 'music'))}', function(data){
+		if (data.error === 0 && data.content.html != '') {
+			var updateList = update_list();
+			if(updateList) {
+				$('#append-list').append(data.content.html);
+				row = $('#'+data.content.id);
+				kindeditor_upload_music(row.find('#item-attach')[0]);
+				$('#'+data.content.id).find("#music_off .music_title").html("<span style='color:red;'>标题为空，请填写！</span>");
+			}
+		}
+	});  
+}
+
+function kindeditor_upload_music(obj) {
+	if (typeof KindEditor == 'undefined') {
+		$.getScript('./resource/script/kindeditor/kindeditor-min.js', initUploader);
+	} else {
+		initUploader();
+	}
+	function initUploader() {
+		var uploadbutton = KindEditor.uploadbutton({
+			button : obj,
+			fieldName : 'attachFile',
+			url : '{php echo create_url('index/module/uploadmusic', array('name' => 'music'))}',
+			width : 100,
+			afterUpload : function(data) {
+				if (data.error === 0) {
+					$(uploadbutton.div.parent().parent().parent().parent().parent()[0]).find('#item-url').val(data.filename);
+				} else {
+					message('上传失败，错误信息：'+data.message);
+				}
+				$(uploadbutton.div).removeClass("up_loading");
+			},
+			afterError : function(str) {
+				message('上传失败，错误信息：'+str);
+			}
+		});	
+		uploadbutton.fileBox.change(function(e) {
+			$(uploadbutton.div).addClass("up_loading");
+			uploadbutton.submit();
+		});
+	}
+}
+
+function update_list() {
+	var update_list = true;
+	var music_title = $("#append-list .on").find("#item-main input:eq(0)").val();
+	var music_url = $("#append-list .on").find("#item-main #item-url").val();
+	if(music_title == '' || music_url == '') {
+		if(music_title == undefined || music_url == undefined) {
+			update_list = true;
+		} else {
+			alert('音乐标题和音乐链接不能为空，请填写！');
+			update_list = false;
+		}
+	}
+	if(update_list) {
+		$("#append-list").find(".item").each(function() {
+			$(this).removeClass("on").addClass("off");
+			var music_title = $(this).find("#item-main input:eq(0)").val();
+			if(ignoreSpaces(music_title).length == 0) var music_title= "<span style='color:red;'>标题为空，请填写！</span>";
+			$(this).find("#music_off .music_title").html(music_title);
+
+			var music_url = $(this).find("#item-main #item-url").val();
+			$(this).find("#music_off .music_button").attr("music_url", music_url);
+		});
+	}
+	return update_list;
+}
+</script>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+	<template source='TPL:common.head' load='true' />
+	<link href="{@theme:css}/profile.css?v={@G:version}" rel="stylesheet" />
+</head>
+<body>
+<div class="wrap">
+	<template source='TPL:common.header' load='true' />
+	<div class="main_wrap">
+		<div class="main cc">
+			<div class="bread_crumb">
+				<a href="{@url:}" class="home" title="{@C:site.info.name}">首页</a><em>&gt;</em><a href="{@WindUrlHelper::createUrl('app/index/run?app=iweengine')}">设置</a>
+				<em>&gt;</em><a href="javascript:;">{$title}</a>
+			</div>
+			<div class="cc profile_page">
+				<div class="md">
+                    <div class="menubar">
+                        <ul>
+                            <!--# if($isBind) { #-->
+                            <li{$active['manual']|html}><a href="{@WindUrlHelper::createUrl('app/index/manual?app=iweengine')}">使用帮助</a></li>
+                            <li{$active['unbind']|html}><a href="{@WindUrlHelper::createUrl('app/index/unbind?app=iweengine')}">解除绑定</a></li>
+                            <!--# } else { #-->
+                            <li{$active['bind']|html}><a href="{@WindUrlHelper::createUrl('app/index/bind?app=iweengine')}">绑定微信</a></li>
+                            <li{$active['manual']|html}><a href="{@WindUrlHelper::createUrl('app/index/manual?app=iweengine')}">使用帮助</a></li>
+                            <!--# } #-->
+                        </ul>
+                    </div>
+				</div>
+				<div class="cm">
+					<div class="cw">
+						<div class="box_wrap">
+                            <!--# if($content == 'bind') { #--><template source='profile_bind' load='true' /><!--# } #-->
+                            <!--# if($content == 'unbind') { #--><template source='profile_unbind' load='true' /><!--# } #-->
+                            <!--# if($content == 'manual') { #--><template source='profile_manual' load='true' /><!--# } #-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<template source='TPL:common.footer' load='true' />
+</div>
+</body>
+</html>
+

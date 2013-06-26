@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>微擎 - 微信公众平台自助引擎 -  Powered by WE7.CC</title>
+<meta name="keywords" content="微擎,微信,微信公众平台" />
+<meta name="description" content="微信公众平台自助引擎，简称微擎，微擎是一款免费开源的微信公众平台管理系统。" />
+<link type="text/css" rel="stylesheet" href="./resource/style/jquery-ui-1.7.3.css" />
+<link type="text/css" rel="stylesheet" href="./resource/style/common.css" />
+<script type="text/javascript" src="./resource/script/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="./resource/script/jquery-ui-1.7.3.min.js"></script>
+<script type="text/javascript" src="./resource/script/common.js?v=1371097406"></script>
+<script type="text/javascript" src="./resource/script/emotions.js"></script>
+<script type="text/javascript">session.online = true; session.uid = 1; session.username = 'admin';</script>
+</head>
+
+<body>
+	<ul id="my-account-menu" style="display:none;">
+                <li><a href="account.php?act=switch&id=1">默认公众号</a></li>
+            </ul>
+	<div id="header">
+    	<div class="container-12">
+        	<div class="row1">
+            	<div class="logo grid-5 alpha"><a href="./index.php">微擎 - 微信公众平台自助引擎</a></div>
+                <div class="fr grid-7 omega">
+                	<ul class="nav finline fr">
+						                        	                        	<li><a href="javascript:;">当前公众号：默认公众号</a></li>
+                                                    <li class="my-account" id="my-account">
+                        <a href="javascript:;">切换公众号</a>
+                        </li>
+                    	<li><a href="account.php?act=&">admin</a></li>
+                        <li><a href="member.php?act=logout&">退出</a></li>
+						                    </ul>
+                </div>
+            </div>
+            <div class="row2">
+            	<div class="nav-container grid-9">
+                	<ul class="nav finline">
+                        <li><a href="account.php?act=&">公众号管理</a></li>
+                        <li><a href="rule.php?act=&">回复管理</a></li>
+						<li class="current"><a href="setting.php?act=module&">系统管理</a></li>
+                        <li><a href="send.php?act=&">群发消息</a></li>
+						<li><a href="index.php?act=help&">帮助</a></li>
+                        <li><a href="http://mp.weixin.qq.com/" target="_blank">微信公众平台</a></li>
+						<li><a href="http://bbs.we7.cc/" target="_blank">微擎官方论坛</a></li>
+                    	                    </ul>
+                </div>
+                <div class="grid-3" style="text-align:right;">
+
+                </div>
+            </div>
+        </div>
+    </div>
+	<div id="middle">
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            <div class="area hot-tag">
+    <h5>系统设置</h5>
+    <ul>
+		<li class="current"><a href="setting.php?act=profile&">账户设置</a></li>
+    	<li ><a href="setting.php?act=display&">模块管理</a></li>
+		<li><a href="setting.php?act=common&">全局管理</a></li>
+    </ul>
+</div>
+        </div>
+        <div class="column1 grid-10 alpha omega modules">
+            <div class="form">
+				<div class="form_h">
+            		<h6>全局模版设置 （这个地方加到全局管理里）</h6>
+				</div>
+                <form action="" method="post" onsubmit="return formcheck(this)">
+				<table border="0" cellspacing="0" cellpadding="0" width="100%">
+				<tr>
+                	<th>站点默认风格</th>
+                    <td>
+						<select class="grid-4 alpha pin">
+							<option>风格名称1</option>
+							<option>风格名称2</option>
+							<option>风格名称3</option>
+						</select>
+						<div class="notice">站点默认的界面风格，使用默认风格的账号将以此风格显示</div>
+					</td>
+				</tr>
+				</table>
+
+				<table>
+				<div class="form_h">
+            		<h6>站点模版设置（这个地方加到切换账号后的模版编辑页面里）</h6>
+				</div>
+				<tr>
+                	<th>站点LOGO</th>
+                    <td>
+						<div class="file grid-4 alpha pin" id="up_logo"><input type="file" name="" /></div>
+						<div class="notice"><a href="">上传文件</a>&nbsp;&nbsp;&nbsp;<a href="">输入 URL</a></div>
+					</td>
+				</tr>
+				<tr>
+                	<th>站点Banner</th>
+                    <td>
+						<div class="file grid-4 alpha pin" id="up_banner"><input type="text" name="" /></div>
+						<div class="notice"><a href="">上传文件</a>&nbsp;&nbsp;&nbsp;<a href="">输入 URL</a></div>
+					</td>
+				</tr>
+				<tr>
+                	<th></th>
+                    <td>
+						<input name="submit" type="submit" value="提交" class="mt10 btn grid-2 alpha" />
+						<input type="hidden" name="token" value="4c177c25" />
+					</td>
+				</tr>
+				</table>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    function formcheck(form) {
+        if (!form['name'].value) {
+            alert('请填写管理员帐号！');
+            form['name'].focus();
+            return false;
+        }
+        if (!form['pw'].value) {
+            alert('请填写管理员密码！');
+            form['pw'].focus();
+            return false;
+        }
+        if (!form['pw2'].value) {
+            alert('请填写新密码！');
+            form['pw2'].focus();
+            return false;
+        }
+        if (form['pw'].value == form['pw2'].value) {
+            alert('新密码与原密码一致，请检查！');
+            form['pw'].focus();
+            return false;
+        }
+        if (form['pw2'].value.length < 6 ) {
+            alert('管理员密码不得小于6个字符！');
+            form['pw2'].focus();
+            return false;
+        }
+		if (form['pw2'].value != form['pw3'].value) {
+            alert('两次输入的新密码不一致，请重新输入！');
+            form['pw2'].focus();
+            return false;
+        }
+    }
+    </script>
+	</div>
+	<div id="footer">
+	<span>Copyright &copy; 2013 微擎 v0.23 <a href="http://www.we7.cc">WWW.WE7.CC</a> All Rights Reserved. </span>
+    </div>
+	<div class="emotions" style="display:none;"></div>
+</body>
+</html>

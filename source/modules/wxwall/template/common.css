@@ -1,0 +1,86 @@
+body {
+font-family: MicroSoft YaHei,simHei;
+background: #036CAD;
+font-size: 36px;
+background-color: #6C401F;
+background-image: url('/source/modules/wxwall/template/skin/4.jpg');
+}
+a{
+text-decoration:none;
+}
+#wallMain {
+width: 1024px;
+overflow: hidden;
+margin: 0 auto;
+position: relative;
+}
+.topbox { height:158px; background: url('/source/modules/wxwall/template/top.png') no-repeat 0 15px;}
+.topbox_l {padding-top:35px; margin-left:400px;}
+.topbox_l .red {color:#D20400;}
+.timefont{ font-family:"UniDreamLED"; font-size:60px; color:#E72C00; vertical-align:middle; background:#EFFBFF;}
+.topic {color:#1F86BE; height:100px; font-size:24px;overflow:hidden; padding-left:20px;}
+.topic img { margin:0 auto;}
+.msg_tit{ color:#000; font-family:simHei; font-size:32px; font-weight:bold; margin:0; height:50px; line-height:50px;}
+.msg_tit strong{ font-size:34px;}
+.Topic_cnt{ font-size:20px;font-weight:bold}
+.addCnt{font-size:16px;color:#000; font-weight:bold}
+.topic .adPic { text-align:center;}
+.topic .adPic img { margin:0 auto;}
+.topic a.red{cursor:pointer;}
+.talkList{
+width: 940px;
+background: white;
+margin: 0px auto 10px auto;
+overflow: hidden;
+border-color: #6C401F;
+border-style: solid;
+border-width: 2px;
+-moz-border-radius: 12px;
+-webkit-border-radius: 12px;
+clear: both;
+padding: 20px;
+overflow: hidden;
+-webkit-box-shadow: 1px 1px 2px #6C401F;
+-moz-box-shadow: 1px 1px 2px #6C401F;
+}
+.userPic {
+width: 144px;
+float: left;
+}
+.userPic img {
+padding: 3px;
+border: 1px solid #CCC;
+-moz-border-radius: 4px;
+border-radius: 4px;
+min-width: 120px;
+min-height: 120px;
+width:128px;
+height:128px;
+}
+.msgBox {
+border-left: 1px solid #B6B7B7;
+min-height: 125px;
+height: 100%;
+float: right;
+padding-left: 20px;
+width: 750px;
+zoom: 1;
+}
+.userName {
+display: inline;
+float: left;
+font-size: 36px;
+height: 46px;
+line-height: 46px;
+}
+.msgCnt {
+display: inline;
+line-height: 50px;
+color:#333;
+}
+.msgCnt, .msgCnt a {
+color:#333;
+font-size: 36px;
+overflow: hidden;
+word-break: break-all;
+}

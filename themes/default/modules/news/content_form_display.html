@@ -1,0 +1,68 @@
+{if empty($child)}
+{php $id = $id;}
+{php $key = $_GPC['key'];}
+{php $namesuffix = '-content-new['.$key.'][]'}
+{else}
+{php $id = 'add-row-news-'.$child['id'];}
+{php $key = $child['parentid'];}
+{php $namesuffix = '['.$child['id'].']'}
+{/if}
+<div class="news-item" id="{$id}">
+    <div id="news-preview" class="clearfix" {if empty($child)}style="display:none"{/if}>
+        <div class="news-thumb fl">
+            <p class="news-default-tips" {if !empty($child)}style="display:none"{/if}>缩略图</p>
+            <img class="i-img" src="{$_W['attachurl']}{$child[thumb]}" id="news-preview-picture" width="100">
+        </div>
+        <div class="news-title-wrap">
+        	<h4 class="news-title" id="news-preview-title">{$child['title']}</h4>
+            <div><a href="javascript:;" onclick="edit_row('add-row-news-{$key}', '{$id}')">编辑</a>&nbsp;|&nbsp;{if !empty($child)}<a href="{php echo create_url('index/module/delete', array('name' => 'news', 'id' => $child['id']))}" onclick="if (confirm('删除操作不可恢复，确认删除吗？')){ajaxopen(this.href, function(){$('#add-row-news-{$child['id']}').remove();});}return false;">删除</a>{else}<a href="javascript:;" onclick="var i=confirm('删除操作不可恢复，确认删除吗？');if(i){$('#{$id}').remove()};return false;">删除</a>{/if}</div>
+        </div>
+    </div>	
+    <div id="news-form" class="form" {if !empty($child)}style="display:none"{/if}>
+		<table border="0" cellspacing="0" cellpadding="0" width="100%">
+		<tr>
+			<th>标题</th>
+			<td>
+				<input type="text" name="news-title{$namesuffix}" id="news-title" class="txt grid-5 alpha pin" value="{$child['title']}" />
+			</td>
+		</tr>
+		<tr>
+			<th>封面</th>
+			<td>
+				<div class="upload-area grid-5 pin"><span class="fr">大图片建议尺寸：100像素 * 100像素</span>
+					<input type="button" id="news-picture" fieldname="news-picture{$namesuffix}" class="upload-file-btn" value="上传" style="display:none;" />
+					{if !empty($child)}
+					<div id="upload-file-view">	
+                    	<input type="hidden" name="news-picture-old[{$child['id']}]" value="{$child[thumb]}">
+						<input type="hidden" id="news-picture-value" value="{$child[thumb]}">
+						<img width="100" src="{$_W['attachurl']}{$child[thumb]}">&nbsp;&nbsp;
+						<a onclick="kindeditor_upload_delete(this, '{$child[thumb]}')" href="javascript:;">删除</a>
+					</div>
+					{else}
+					<div id="upload-file-view"></div>
+					{/if}
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>原文</th>
+			<td>
+				<textarea name="news-content{$namesuffix}" cols="70" class="richtext-clone" style="height:50px; width:470px;">{$child['content']}</textarea>
+			</td>
+        </tr>
+		<tr>
+        <th>来源</th>
+		<td>
+			<input type="text" name="news-url{$namesuffix}" class="txt grid-5 alpha pin" value="{$child['url']}" />
+		</td>
+		</tr>
+		</table>
+    </div>
+</div>
+{if !empty($child)}
+<script type="text/javascript">
+var row = $('#{$id}');
+kindeditor(row.find('textarea:[class="richtext-clone"]'));
+kindeditor_upload_image(row.find('#news-picture')[0]);	
+</script>
+{/if}

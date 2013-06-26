@@ -1,0 +1,76 @@
+{template 'common/header'}
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            {template 'member/nav'}
+        </div>
+        <div class="column1 grid-10 alpha omega modules">
+            <div class="list">
+				{loop $ds $row}
+            	<div class="item clearfix{if !$row['enabled']} disabled{/if}">
+                    <div class="content clearfix">
+                    	<div class="data fl">{$row['title']}</div>
+                        <div class="fr">
+                        {if $row['enabled']}
+                        <a href="javascript:;" onclick="toggle('{$row['mid']}',false, this);">禁用</a>
+                        {else}
+                        <a href="javascript:;" onclick="toggle('{$row['mid']}',true, this);">启用</a>
+                        {/if}
+                        </div>
+                    </div>
+                    <div class="desc clearfix" style="height:auto;line-height:25px;">
+                        <table>
+                            <tr>
+                                <td width="80">模块标识</td>
+                                <td>{$row['name']}</td>
+                            </tr>
+                            <tr>
+                                <td>模块名称</td>
+                                <td>{$row['title']}</td>
+                            </tr>
+                            <tr>
+                                <td>功能描述</td>
+                                <td>{$row['ability']}</td>
+                            </tr>
+                            <tr>
+                                <td>功能介绍</td>
+                                <td>{$row['description']}</td>
+                            </tr>
+                            {if is_array($row['settings'])}
+                            <tr>
+                                <td>配置选项</td>
+                                <td>
+                                    {loop $row['settings'] $name $title}
+                                        <a href="{$name}">{$title}</a> <br />
+                                    {/loop}
+                                </td>
+                            </tr>
+                            {/if}
+                        </table>
+                    </div>
+                </div>
+				{/loop}
+            </div>
+			<div>
+				{$pager}
+			</div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function toggle(mid, s, o) {
+            var container = $(o).parent().parent().parent();
+            $.post(location.href, {mid:mid, s:s}).success(function(data){
+                if(data == 'success') {
+                    if(s) {
+                        container.removeClass('disabled');
+                        container.find('.desc').slideDown('normal');
+                        $(o).parent().html('<a href="javascript:;" onclick="toggle(\'' + mid + '\', false, this);">禁用</a>');
+                    } else {
+                        container.addClass('disabled');
+                        container.find('.desc').slideUp('normal');
+                        $(o).parent().html('<a href="javascript:;" onclick="toggle(\'' + mid + '\', true, this);">启用</a>');
+                    }
+                }
+            });
+        }
+    </script>
+{template 'common/footer'}

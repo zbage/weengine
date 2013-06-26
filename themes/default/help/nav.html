@@ -1,0 +1,21 @@
+<div class="area hot-tag">
+    <h5>帮助中心</h5>
+    <ul>
+        <li{$nav['index']}><a href="{php echo create_url('index/help', array('do' => 'index'))}">关于本系统</a></li>
+        <li{$nav['wx_register']}><a href="{php echo create_url('index/help', array('do' => 'wx_register'))}">开通微信公众平台</a></li>
+        <li{$nav['wx_bind']}><a href="{php echo create_url('index/help', array('do' => 'wx_bind'))}">绑定微信公众帐号</a></li>
+    </ul>
+</div>
+<div class="area hot-tag">
+    <ul>
+        <li{$nav['rule_reply']}><a href="{php echo create_url('index/help', array('do' => 'rule_reply'))}">规则回复设置</a></li>
+        <li{$nav['rule_system']}><a href="{php echo create_url('index/help', array('do' => 'rule_system'))}">系统回复设置</a></li>
+    </ul>
+</div>
+<div class="area hot-tag">
+    <h5>常见问题</h5>
+    <ul>
+        <li{$nav['wx_uid']}><a href="{php echo create_url('index/help', array('do' => 'wx_uid'))}">微信原始帐号</a></li>
+        <li{$nav['wx_token']}><a href="{php echo create_url('index/help', array('do' => 'wx_token'))}">微信Token</a></li>
+    </ul>
+</div>

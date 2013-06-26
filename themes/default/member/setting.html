@@ -1,0 +1,38 @@
+{template 'common/header'}
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            {template 'member/nav'}
+        </div>
+        <div class="column1 grid-10 alpha omega">
+            <div class="form">
+                <form action="" method="post">
+					<h6>接口地址</h6>
+                    <input type="text" class="txt grid-4 alpha pin" value="{$_W['siteroot']}api.php" readonly="readonly" />
+                    <div class="mt10">设置“微信公众平台接口”配置信息中的接口地址</div>
+                    
+                    <h6 class="mt20">微信Token</h6>
+                    <input type="text" name="wx_token" class="txt grid-4 alpha pin" value="{$_W['setting']['profile']['token']}" readonly="readonly" /> <a href="javascript:;" onclick="tokenGen();">生成新的</a>
+                    <div class="mt10">与微信公众平台接入设置值一致，必须为英文或者数字，长度为3到32个字符. 请妥善保管, Token 泄露将可能被窃取或篡改微信平台的操作数据.</div>
+
+                    <h6 class="mt20">微信帐号</h6>
+                    <input type="text" name="wx_uid" class="txt grid-4 alpha pin" value="{$_W['setting']['profile']['wechat']}" />
+                    <div class="mt10">微信公众帐号的原ID串，<a href="" target="blank">怎么查看微信的原始帐号？</a></div>
+
+                    <input name="submit" type="submit" value="提交" class="mt10 btn grid-2 alpha" />
+                    <input type="hidden" name="token" value="{$_W['token']}" />
+                </form>
+            </div> 
+        </div>  
+    </div>
+    <script type="text/javascript">
+        function tokenGen() {
+            var letters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+            var token = '';
+            for(var i = 0; i < 32; i++) {
+                var j = parseInt(Math.random() * (31 + 1));
+                token += letters[j];
+            }
+            $(':text[name="wx_token"]').val(token);
+        }
+    </script>
+{template 'common/footer'}

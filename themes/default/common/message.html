@@ -1,0 +1,20 @@
+{template 'common/header'}
+<div id="main-single" class="container-12 horizontal">
+    <div class="message clearfix {$type}">
+		<div class="icon fl"></div>
+		<div class="fl grid-8">
+			<h6>{$msg}</h6>
+			{if $redirect}
+			<p><a href="{$redirect}">如果你的浏览器没有自动跳转，请点击此链接</a></p>
+			<script type="text/javascript">
+				setTimeout(function () {
+					window.top.location.href = "{$redirect}";
+				}, 3000);
+			</script>
+			{else}
+			<p>[<a href="javascript:history.go(-1);">点击这里返回上一页</a>] &nbsp; [<a href="./?refresh">首页</a>]</p>
+			{/if}
+		</div>
+    </div>
+</div>
+{template 'common/footer'}

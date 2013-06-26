@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+	<application>
+		<name>微擎.微信公众平台自助引擎</name>                  
+		<alias>iweengine</alias>
+		<version>1.0</version>	 
+		<pw-version>9.0</pw-version>       
+		<description></description>   
+		<logo>images/logo.jpg</logo>		
+		<type>app</type>					
+		<charset>UTF-8</charset>		 
+		<website></website>	 
+		<author-name></author-name>		     
+		<author-email></author-email>		  	
+		<author-icon>your icon</author-icon>	         
+	</application>
+
+	<res>res</res>
+
+	<installation-service>nav_my</installation-service>
+	<inject-services>
+<s_admin_menu>
+	<app_iweengine>
+	<class>EXT:iweengine.service.srv.App_Iweengine_ConfigDo</class>
+	<loadway>load</loadway>
+	<method>getAdminMenu</method>
+	<description>微擎.微信公众平台自助引擎admin menu</description>
+	</app_iweengine>
+	</s_admin_menu>
+</inject-services>
+</manifest>

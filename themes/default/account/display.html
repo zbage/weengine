@@ -1,0 +1,42 @@
+{template 'common/header'}
+	<script type="text/javascript" src="./resource/script/jquery.zclip.min.js"></script>
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            {template 'account/nav'}
+        </div>
+        <div class="column1 grid-10 alpha omega">
+            <div class="list">
+				{loop $list $row}
+            	<div class="account_item clearfix">
+                	<div class="account_content clearfix">
+                    	<div class="data fl">{$row[name]} <span style="font-size:12px;">（微信号：{$row['account']}）</span></div>
+                        <div class="fr">
+                        <a href="{php echo create_url('account/switch', array('id' => $row['weid']))}">切换</a>
+                        &nbsp;
+                        <a href="{php echo create_url('account/post', array('id' => $row['weid']))}">编辑</a>
+                        &nbsp;
+						<a onclick="return confirm('删除帐号将同时删除全部规则及回复，确认吗？');return false;" href="{php echo create_url('account/delete', array('id' => $row['weid']))}">删除</a>
+                        </div>
+                    </div>
+                    <div class="account_desc clearfix" style="height:auto;">
+                        <div id="api_{$row[weid]}"><label>API地址：</label><span><input type="text" value="{$_W['siteroot']}api.php?hash={$row['hash']}" /><button class="btn">复制</button></span></div> 
+                        <div id="token_{$row[weid]}"><label>Token：</label><span><input type="text" value="{$row['token']}" /><button class="btn">复制</button></span></div> 
+                    </div>
+                </div>
+				<script type="text/javascript">
+					$(function() {
+						$("#api_{$row[weid]} button").zclip({
+							path:'./resource/script/ZeroClipboard.swf',
+							copy:$('#api_{$row[weid]} input').val()
+						});
+						$("#token_{$row[weid]} button").zclip({
+							path:'./resource/script/ZeroClipboard.swf',
+							copy:$('#token_{$row[weid]} input').val()
+						});
+					});
+				</script>
+				{/loop}
+            </div>
+        </div>
+    </div>
+{template 'common/footer'}

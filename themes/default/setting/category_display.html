@@ -1,0 +1,65 @@
+{template 'common/header'}
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            {template 'setting/nav'}
+        </div>
+        <div class="column1 grid-10 alpha omega modules">
+			<div class="form settype">
+                <form action="" method="post" onsubmit="return formcheck(this)">
+				<table border="0" cellspacing="0" cellpadding="0" width="100%">
+				<tr class="header">
+                	<td></td>
+                    <td>显示顺序</td>
+					<td>分类名称</td>
+					<td>设为栏目</td>
+					<td style="width:70px;">操作</td>
+				</tr>
+                {loop $category $row}
+                	<tr class="hover">
+                        <td id="type_hover">{if count($children[$row['id']]) > 0}<a href="javascript:;">[+]</a>{/if}</td>
+                        <td class="td60"><input class="order" type="text" name="displayorder[{$row['id']}]" value="{$row['displayorder']}" /></td>
+                        <td>
+                            <div class="td106 {if !empty($row['parentid'])}type_child{/if}">
+                                {$row['name']}
+                                {if empty($row['parentid'])}
+                                <span class="addchildtype"><a href="{php echo create_url('setting/category/post', array('parentid' => $row['id']))}">添加子分类</a></span>
+                                {/if}
+                            </div>
+                        </td>
+                        <td class="type_show">{php echo $row['enabled'] ? '是' : '否'}</td>
+                        <td><a href="{php echo create_url('setting/category/post', array('id' => $row['id']))}">编辑</a>&nbsp;&nbsp;<a href="{php echo create_url('setting/category/delete', array('id' => $row['id']))}">删除</a></td>
+                    </tr>
+                    {loop $children[$row['id']] $row}
+                	<tr class="hover">
+                        <td id="type_hover"></td>
+                        <td class="td60"><input class="order" type="text" name="displayorder[{$row['id']}]" value="{$row['displayorder']}" /></td>
+                        <td>
+                            <div class="td106 {if !empty($row['parentid'])}type_child{/if}">
+                                {$row['name']}
+                                {if empty($row['parentid'])}
+                                <span class="addchildtype"><a href="{php echo create_url('setting/category/post', array('parentid' => $row['id']))}">添加子分类</a></span>
+                                {/if}
+                            </div>
+                        </td>
+                        <td class="type_show">{php echo $row['enabled'] ? '是' : '否'}</td>
+                        <td><a href="{php echo create_url('setting/category/post', array('id' => $row['id']))}">编辑</a>&nbsp;&nbsp;<a href="{php echo create_url('setting/category/delete', array('id' => $row['id']))}">删除</a></td>
+                    </tr>
+                	{/loop}
+                {/loop}
+				</table>
+				<table>
+				<tr>
+					<td><div><span class="addnewtype"><a href="{php echo create_url('setting/category/post')}">添加新分类</a></span></div></td>
+				</tr>
+				<tr>
+                    <td>
+						<input name="submit" type="submit" value="提交" class="mt10 btn grid-2 alpha" />
+						<input type="hidden" name="token" value="{$_W['token']}" />
+					</td>
+				</tr>
+				</table>
+				</form>
+            </div>
+        </div>
+    </div>
+{template 'common/footer'}

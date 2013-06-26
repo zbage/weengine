@@ -1,0 +1,87 @@
+{if empty($news)}
+{php $id = $id;}
+{php $key = $_W['timestamp'];}
+{php $namesuffix = '-new'}
+{else}
+{php $id = 'add-row-news-'.$news['id'];}
+{php $key = $news['id'];}
+{php $namesuffix = ''}
+{/if}
+<div id="{$id}" class="item">
+	<span class="fr">{if empty($news)}<a href="javascript:;" onclick="if(confirm('删除操作不可恢复，确认删除吗？')){$('#{$id}').remove();};return false;">X</a>{else}<a href="{php echo create_url('index/module/delete', array('name' => 'news', 'id' => $news['id']))}" onclick="if (confirm('删除操作不可恢复，确认删除吗？')){ajaxopen(this.href, function(){$('#add-row-news-{$news['id']}').remove();});}return false;">X</a>{/if}</span>
+	<div id="news-item-main" class="news-item">
+		<div id="news-preview" class="clearfix" {if empty($news)}style="display:none;"{/if}>
+			<div class="news-cover fl">
+				<p class="news-default-tips" {if !empty($news['thumb'])} style="display:none;"{/if}>封面图片</p>
+				<img class="i-img" src="{$_W['attachurl']}{$news[thumb]}" id="news-preview-picture">
+			</div>
+			<div class="news-content-wrap">
+				<h4 class="news-title" id="news-preview-title">{$news['title']}</h4>
+				<div class="news-content" id="news-content"></div>
+                <div><a href="javascript:;" onclick="edit_row('{$id}', 'news-item-main')">编辑</a></div>
+			</div>
+		</div>
+		<div id="news-form" class="form" {if !empty($news)}style="display:none;"{/if}>
+			<table border="0" cellspacing="0" cellpadding="0" width="100%">
+			<tr>
+				<th>标题</th>
+				<td>
+					<input type="text" name="news-title{$namesuffix}[{$key}]" id="news-title" class="txt grid-5 alpha pin" value="{$news['title']}" />
+				</td>
+			</tr>
+			<tr>
+				<th>封面</th>
+				<td>
+					<div class="upload-area grid-5 pin"><span class="fr">大图片建议尺寸：700像素 * 300像素</span>
+						<input type="button"  id="news-picture" fieldname="news-picture{$namesuffix}[{$key}]" class="upload-file-btn" value="上传" style="display:none;" />
+						{if !empty($news)}
+						<div id="upload-file-view">	
+                        	<input type="hidden" name="news-picture-old[{$key}]" value="{$news[thumb]}">
+							<input type="hidden" id="news-picture-value" value="{$news[thumb]}">
+							<img width="100" src="{$_W['attachurl']}{$news[thumb]}">&nbsp;&nbsp;
+							<a onclick="kindeditor_upload_delete(this, '{$news[thumb]}')" href="javascript:;">删除</a>
+						</div>
+						{else}
+						<div id="upload-file-view"></div>
+						{/if}	
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>描述</th>
+				<td>
+					<textarea name="news-description{$namesuffix}[{$key}]" cols="50" class="txt content" style="height:50px; width:450px;">{$news['description']}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>原文</th>
+				<td>
+					<textarea name="news-content{$namesuffix}[{$key}]" cols="70" class="richtext-clone" style="height:50px; width:470px;">{$news['content']}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>来源</th>
+				<td>
+					<input type="text" name="news-url{$namesuffix}[{$key}]" class="txt grid-5 alpha pin" value="{$news['url']}" />
+				</td>
+			</tr>
+		</table>
+		</div>
+	</div>
+	{if !empty($news)}
+	<script type="text/javascript">
+	var row = $('#{$id}');
+	kindeditor(row.find('textarea:[class="richtext-clone"]'));
+	kindeditor_upload_image(row.find('#news-picture')[0]);	
+	</script>
+	{/if}
+	{if !empty($news['children'])}
+	{loop $news['children'] $child}
+	{template 'modules/news/content_form_display'}
+	{/loop}
+	{/if}
+    <div class="mt10 form">
+        <input name="news-add" type="button" value="添加内容" onclick="add_row_content(this, '{$key}')" class="mt10 btn alpha" />&nbsp;&nbsp;为当前图文信息增加多条内容
+    </div> 
+</div>
+

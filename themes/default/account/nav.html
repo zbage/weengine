@@ -1,0 +1,7 @@
+<div class="area hot-tag">
+    <h5>公众号管理</h5>
+    <ul>
+    	 <li{if empty($id)}{$nav['post']}{/if}><a href="{php echo create_url('account/post')}">添加公众号</a></li>
+    	<li{if empty($id)}{$nav['display']}{/if}><a href="{php echo create_url('account/display')}">管理公众号</a></li>
+    </ul>
+</div>

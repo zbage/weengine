@@ -1,0 +1,31 @@
+{template 'common/header'}
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            {template 'setting/nav'}
+        </div>
+        <div class="column1 grid-10 alpha omega modules">
+            <div class="form">
+				<div class="form_h">
+            		<h6>更新缓存</h6>
+				</div>
+                <form action="" method="post">
+				<table border="0" cellspacing="0" cellpadding="0" width="100%">
+				<tr>
+                	<th>缓存类型</th>
+                    <td>
+						<input type="checkbox" name="type[]" value="data" id="type_data" checked="checked" /><label for="type_data">数据缓存</label>&nbsp;&nbsp;
+                        <input type="checkbox" name="type[]" value="template" id="type_template" checked="checked" /><label for="type_template">模板缓存</label>&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+                	<th></th>
+                    <td>
+						<input name="submit" type="submit" value="提交" class="mt10 btn grid-2 alpha" />
+						<input type="hidden" name="token" value="{$_W['token']}" />
+					</td>
+				</tr>
+				</table>
+            </div>
+        </div>
+    </div>
+{template 'common/footer'}

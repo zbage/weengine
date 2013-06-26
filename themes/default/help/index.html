@@ -1,0 +1,28 @@
+{template 'common/header'}
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            {template 'help/nav'}
+        </div>
+        <div class="column1 grid-10 alpha omega" style="font-size:16px;">
+            <div class="form">
+                <h6>本系统能为您带来什么优势？</h6>
+                <ul class="help-list">
+                    <li>依托“微信公众平台”借助“微信”实现移动平台上的智能化、自动化的信息回复，自助查询，订阅信息等商务服务。提升工作效率、结省人工成本、增强用户体验等</li>
+                    <li>通过“微信”过2亿的丰富用户群的关注页和朋友圈，实现品牌的病毒式传播，提高知名度和建立良好的品牌形象。</li>
+                </ul>
+				<h6 class="mt20">什么是“微信”及“微信公众平台”？</h6>
+                <ul class="help-list">
+                    <li>“微信”是一款运行在“移动平台”的；由腾讯公司推出的一款通过网络快速发送语音短信、视频、图片和文字，即类似于传统的“短信”“彩信”。</li>
+                    <li>目前微信注册用户过2亿，其庞大的用户群体，使“移动营销”进入“快车道”，通过“移动平台”让品牌“随时随地”传递信息成为了可能。</li>
+                    <li>本平台与“微信公众平台”完美结合，利用丰富的用户群体，这一渠道为品牌信息的传递打造一个动态的生态链。丰富您的营销手段，提高知名度和品牌形象。</li>
+                </ul>
+                <h6 class="mt20">想了解更多？</h6>
+                <ul class="help-list">
+                    <li>添加官方示例“微信公众平台帐号”：we7team。<p class="mt10"><img src="./resource/image/help/we7team.jpg" width="130"></p><br />您可以发送“你好”，“关于我们”等关键字。添加后即可体验本系统带来前所未有的功能。</li>
+                    <li>查看“<a href="{php echo create_url('index/help', array('do' => 'rule_reply'))}" target="_blank">回复规则设置</a>”。</li>
+                    <li>还不够？那么需要您亲自体验一下了。“<a href="{php echo create_url('rule/post')}" target="_blank">添加回复规则</a>”</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{template 'common/footer'}

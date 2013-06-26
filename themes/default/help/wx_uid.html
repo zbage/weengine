@@ -1,0 +1,27 @@
+{template 'common/header'}
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            {template 'help/nav'}
+        </div>
+        <div class="column1 grid-10 alpha omega" style="font-size:14px;">
+            <div class="form">
+               <h6>什么是微信原始帐号？</h6>
+                <ul class="help-list">
+                    <li>是类似于 gh_x3122523x83x 此类字母串的形式。</li>
+                    <li>是“微信公众平台”系统给您的原始的帐号ID，此微信号可以在“设置”-> “帐号信息”中更改。但本系统需要的是<strong>原始帐号ID</strong></li>
+                </ul>
+                <h6 class="mt20">查看自己的微信原始帐号</h6>
+                <ul class="help-list">
+                    <li><a href="{php echo create_url('account/display')}" target="_blank">设置微信原始帐号</a></li>
+                    <li>如果您未重新设置过“微信公众平台”的微信号时，可以通过“设置”-> “帐号信息”中查看到该帐号。如图：
+                    <p class="mt10"><img src="./resource/image/help/help_wx_uid_1.jpg" width="700" /></p></li>
+                    <li>如果您已经设置过。可以通过以下方式查看，如图：
+                    <p class="mt10"><img src="./resource/image/help/help_wx_uid_2.jpg" width="700" /></p></li>
+                    <li>保存图片到电脑上后，查看文件名中的帐号信息，如图：
+                    <p class="mt10"><img src="./resource/image/help/help_wx_uid_3.jpg" /></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{template 'common/footer'}

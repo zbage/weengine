@@ -1,0 +1,24 @@
+{template 'common/header'}
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            {template 'help/nav'}
+        </div>
+        <div class="column1 grid-10 alpha omega" style="font-size:14px;">
+            <div class="form">
+               <h6>什么是系统回复？</h6>
+                <ul class="help-list">
+                    <li>主要包括“欢迎信息”及“默认回复”。</li>
+                    <li>
+                        “欢迎信息”：在用户添加您的“微信公众帐号”的时候，系统默认为其发送的信息，可设置一些欢迎信息、品牌介绍、操作说明等。
+                    </li>
+                    <li>“默认回复”：在用户给“微信公众帐号”发送信息时，系统无法在设置的规则中找到相应的结果，默认为其回复的内容，可设置一些操作说明、关键字列表等。</li>
+                </ul>
+                <h6 class="mt20">系统回复设置</h6>
+                <ul class="help-list">
+                    <li><a href="{php echo create_url('rule/system')}" target="_blank">添加系统回复规则</a></li>
+                    <li>设置“欢迎信息”及“默认回复”。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{template 'common/footer'}

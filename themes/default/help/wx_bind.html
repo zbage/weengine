@@ -1,0 +1,26 @@
+{template 'common/header'}
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            {template 'help/nav'}
+        </div>
+        <div class="column1 grid-10 alpha omega" style="font-size:14px;">
+            <div class="form">
+                <h6>绑定微信公众帐号</h6>
+                <ul class="help-list">
+                    <li>开通“微信公众平台”仅仅只是一个开始，您还需要做一些简单的设置，才能和本平台完美接入。</li>
+                    <li>点击“<strong>高级功能</strong>”前往设置接入参数。打开页面后，点击下方的“<strong>成为开发者</strong>”填写接入参数，如图：
+                    <p class="mt10"><img src="./resource/image/help/help_wx_bind_1.jpg" width="700" /></p>
+					<p class="mt10"><img src="./resource/image/help/help_wx_bind_3.jpg" width="700" /></p>
+                    </li>
+                    <li>填写您的一些基本情况，其“接口配置信息”URL、Token可以在“<a href="account.php?act=display&" target="_blank">公众号管理</a>”中查看，注意：Token必须两边保持一致。
+                    </li>
+                    <li>提交后，“微信公众平台”会提示你已成为开发者！
+					<p class="mt10"><img src="./resource/image/help/help_wx_bind_2.jpg" width="700" /></p>					
+					</li>
+                    <li>至此，已经完成绑定操作，请查看如何设置“<a href="{php echo create_url('index/help', array('do' => 'rule_system'))}">系统回复信息</a>”及“<a href="{php echo create_url('index/help', array('do' => 'rule_reply'))}">规则回复信息</a>”</li>
+                </ul>
+				
+            </div>
+        </div>
+    </div>
+{template 'common/footer'}

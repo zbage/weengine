@@ -1,0 +1,22 @@
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+   <tr>
+        <th>接口地址</th>
+        <td><input type="text" value="{$settings['apiurl']}" class="txt grid-4 alpha pin" name="apiurl">
+            <div class="notice">
+            <ol>
+                <li>1. 接口地址为可以访问的URL地址，通过此地址返回回复数据。</li>
+                <li>2. </li>
+            </ol>
+            </div></td>
+    </tr>
+    <tr>
+        <th>默认回复文字</th>
+        <td><input type="text" value="{$settings['default']}" class="txt grid-4 alpha pin" name="default">
+            <div class="notice">当接口无回复时，则返回用户此处设置的文字信息，优先级高于“默认回复URL”</div></td>
+    </tr>
+    <tr>
+        <th>Token</th>
+        <td><input type="text" value="{$settings['sign']}" class="txt grid-4 alpha pin" name="sign" maxlength="5">
+            <div class="notice">签名验的Token值，根据此值两边进行签名算法。最长5位</div></td>
+    </tr>
+</table>

@@ -1,0 +1,32 @@
+{template 'common/header'}
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            {template 'help/nav'}
+        </div>
+        <div class="column1 grid-10 alpha omega" style="font-size:14px;">
+            <div class="form">
+                <h6>什么是规则回复？</h6>
+                <ul class="help-list">
+                    <li>是根据系统默认或是您手动添加的一系列关键字，从而实现“智能回复”、“自助查询”、“订阅信息”等功能。</li>
+                    <li>目前支持：
+                    {loop $_W['setting']['modules'] $key $mod}
+                    “<strong>{$mod['title']}</strong>”
+                    {/loop}</li>
+                </ul>
+                <h6 class="mt20">规则回复设置</h6>
+                <ul class="help-list">
+                    <li><a href="{php echo create_url('rule/post')}" target="_blank">添加回复规则</a></li>
+                    <li>“<strong>规则名称</strong>”：规则的名称，用于显示区分多条规则。</li>    
+                    <li>“<strong>关键字</strong>”：用于系统分别用户输入的消息信息，以便于回复对应的内容。设置关键字时，应该注意通用性，明确性及精短性。例如：设置用户查询订单时的关键字为“订单”、“查询”等</li> 
+                    <li>“<strong>回复</strong>”：用于系统在收到用户消息时，给予的相应回复信息，回复信息可包含以下几种模式，具体请查看。</li> 
+                    {loop $_W['setting']['modules'] $key $mod}
+                    <li>“<strong>{$mod['title']}</strong>”：{$mod['description']}</li>
+                    {/loop}
+                    </li>
+                    <li>至此，“规则回复设置”已经完成，请查看如何“<a href="{php echo create_url('index/help', array('do' => 'rule_system'))}">设置系统回复</a>”</li>
+                </ul>
+				
+            </div>
+        </div>
+    </div>
+{template 'common/footer'}

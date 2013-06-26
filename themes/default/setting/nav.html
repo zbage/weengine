@@ -1,0 +1,13 @@
+<div class="area hot-tag">
+    <h5>系统设置</h5>
+    <ul>
+		<li{$nav['profile']}><a href="{php echo create_url('setting/profile')}">账户设置</a></li>
+    	<li{$nav['display']} {if $do == 'setting'}class="current"{/if}><a href="{php echo create_url('setting/display')}">模块管理</a></li>
+		<li{$nav['common']}><a href="{php echo create_url('setting/common')}">全局管理</a></li>
+        <li{$nav['settingcategory']}><a href="{php echo create_url('setting/category')}">分类管理</a></li>
+    </ul>
+    <h5>工具</h5>
+    <ul>
+		<li{$nav['settingupdatecache']}><a href="{php echo create_url('setting/updatecache')}">更新缓存</a></li>
+    </ul>
+</div>

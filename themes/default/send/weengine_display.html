@@ -1,0 +1,36 @@
+{template 'common/header'}
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            {template 'send/nav'}
+        </div>
+        <div class="column1 grid-10 alpha omega">
+            <div class="form">
+                <form action="{php echo create_url('send/weengine/send')}" method="post">
+				<div class="notice" style="-moz-border-radius:6px;-webkit-border-radius:6px;border-radius:6px;color:#556652;line-height:20px; padding:5px;background:#D5FFCE;border:1px #9ADF8F solid;">本功能仅供学习与交流使用，请勿进行违法、违规的操作。请合理使用该功能共同赢造和谐健康的网络环境。该功能有别于传统推送机制在使用过程中如产生帐号被屏蔽及其它后果，微擎团队概不负责！</div> 				<table border="0" cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+						<th>单次发送的人数：</th>
+						<td>
+							<input type="text" class="txt grid-4 alpha pin" name="pagesize" value="10" />
+							<div class="notice">一次发送通知的用户数目，由于效率问题，建意此值保持默认</div>
+						</td>
+					</tr>
+					<tr>
+						<th>群发消息：</th>
+						<td>
+							<textarea name="message" id="send_message" cols="55" class="txt content" style="height:200px;"></textarea>
+							<div class="notice">需要群发的内容，目前只支持文字 <a class="iconEmotion" href="javascript:;" inputId="send_message">表情</a></div>
+						</td>
+					</tr>
+					<tr>
+						<th></th>
+						<td>
+							<input name="submit" type="submit" value="提交" class="mt10 btn grid-2 alpha" />
+							<input type="hidden" name="token" value="{$_W['token']}" />
+						</td>
+					</tr>
+				</table>
+                </form>
+            </div>
+        </div>
+    </div>
+{template 'common/footer'}

@@ -1,0 +1,64 @@
+{template 'common/header'}
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            {template 'setting/nav'}
+        </div>
+        <div class="column1 grid-10 alpha omega modules">
+			<div class="form">
+				<div class="form_h">
+            		<h6>分类详细设置</h6>
+				</div>
+                <form action="" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="parentid" value="{$parent['id']}" />
+				<table border="0" cellspacing="0" cellpadding="0" width="100%">
+                	{if !empty($parentid)}
+                	<tr>
+                        <th>上级分类</th>
+                        <td>
+                            {$parent['name']}
+                        </td>
+                    </tr>
+                    {/if}
+                	<tr>
+                        <th>排序</th>
+                        <td>
+                            <input type="text" name="displayorder" class="txt grid-2 alpha pin" value="{$category['displayorder']}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>分类名称</th>
+                        <td>
+                            <input type="text" name="name" class="txt grid-4 alpha pin" value="{$category['name']}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>分类描述</th>
+                        <td>
+                            <textarea style="height:100px;" class="txt content" cols="70"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>分类图片</th>
+                        <td>
+                            <div class="file grid-4 alpha pin" id="up_logo"><input type="file" name="icon" value="" /></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>设为栏目</th>
+                        <td>
+                            <input type="radio" name="enabled" value="1" id="isshow1" {if $category['enabled'] == '1'}checked="true"{/if}><label for="isshow1">是</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="enabled" value="0" id="isshow0"  {if $category['enabled'] == '0'}checked="true"{/if}><label for="isshow0">否</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input name="submit" type="submit" value="提交" class="mt10 btn grid-2 alpha" />
+                            <input type="hidden" name="token" value="{$_W['token']}" />
+                        </td>
+                    </tr>
+				</table>
+				</form>
+            </div>
+        </div>
+    </div>
+{template 'common/footer'}

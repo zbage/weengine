@@ -1,0 +1,73 @@
+{template 'common/header'}
+    <div id="main-column" class="container-12 clearfix member-center">
+        <div class="column2 grid-3 alpha omega">
+            {template 'rule/nav'}
+        </div>
+        <div class="column1 grid-10 alpha omega">
+            <div class="form">
+                <form action="" method="post">
+				<table border="0" cellspacing="0" cellpadding="0" width="100%">
+					<tr>
+						<th>欢迎信息：</th>
+						<td>
+							{if $wechat[welcomerid]}
+                            <div class="rule_item clearfix" style="margin:0 !important; margin:0;">
+                                <div class="rule_content clearfix">
+                                    <div class="data fl">{$wechat[welcome][rule][name]} <span style="font-size:12px;">（{$_W['setting']['modules'][$wechat[welcome][rule][module]]['title']}）</span></div>
+                                    <div class="fr">
+                                    <a href="{php echo create_url('rule/post', array('id' => $wechat[welcome][rule]['id']))}">编辑/查看</a>
+                                    &nbsp;
+                                    <a onclick="return confirm('取消设置的系统回复，确认吗？');return false;" href="{php echo create_url('rule/system/cancel', array('type' => 'welcome'))}">取消</a>
+                                    </div>
+                                </div>
+                                <div class="rule_desc clearfix" style="height:auto;line-height:25px;">
+                                    {loop $wechat[welcome][keyword] $kw}
+                                   <span class="rule_kw"> {$kw['content']}</span>
+                                    {/loop}
+                                </div>
+                            </div>
+                            {else}<textarea name="welcome" id="welcome" cols="55" class="txt content" style="height:200px;">{$wechat['welcome']}</textarea>{/if}
+							<div class="notice">设置用户添加公众帐号好友时，发送的欢迎信息。<a class="iconEmotion" href="javascript:;" inputId="welcome">表情</a></div>
+						</td>
+					</tr>
+                    <tr>
+						<th>默认回复：</th>
+						<td>
+							{if $wechat[defaultrid]}
+                            <div class="rule_item clearfix" style="margin:0 !important; margin:0;">
+                                <div class="rule_content clearfix">
+                                    <div class="data fl">{$wechat[default][rule][name]} <span style="font-size:12px;">（{$_W['setting']['modules'][$wechat[default][rule][module]]['title']}）</span></div>
+                                    <div class="fr">
+                                    <a href="{php echo create_url('rule/post', array('id' => $wechat[default][rule]['id']))}">编辑/查看</a>
+                                    &nbsp;
+                                    <a onclick="return confirm('取消设置的系统回复，确认吗？');return false;" href="{php echo create_url('rule/system/cancel', array('type' => 'default'))}">取消</a>
+                                    </div>
+                                </div>
+                                <div class="rule_desc clearfix" style="height:auto;line-height:25px;">
+                                    {loop $wechat[default][keyword] $kw}
+                                    <span class="rule_kw"> {$kw['content']}</span>
+                                    {/loop}
+                                </div>
+                            </div>
+                           	{else}<textarea name="default" id="default" cols="55" class="txt content" style="height:200px;">{$wechat['default']}</textarea>{/if}
+							<div class="notice">当匹配不到回复时，默认发送的内容。<a class="iconEmotion" href="javascript:;" inputId="default">表情</a></div>
+						</td>
+					</tr>
+                    <tr>
+                    	<th>默认回复时间间隔：</th>
+						<td><input type="text" name="default-period" class="txt grid-4 alpha pin" value="{$wechat['default_period']}" /><span>秒</span><div class="notice">此条设置只针对“默认回复”。设置“默认回复”对同一用户的回复间隔。为空表示不限制。</div></td>
+                    </tr>
+					<tr>
+						<th></th>
+						<td>
+							<input name="submit" type="submit" value="提交" class="mt10 btn grid-2 alpha" />
+							<input type="hidden" name="token" value="{$_W['token']}" />
+						</td>
+					</tr>
+				</table>
+                </form>
+            </div> 
+        </div>
+        
+    </div>
+{template 'common/footer'}
