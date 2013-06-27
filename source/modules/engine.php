@@ -14,6 +14,7 @@ class WeEngine {
 	private $matcher = null;
 	public $message = array();
 	public $response = array();
+	public $keyword = array();
 
 	/**
 	 * 构造新实例
@@ -146,23 +147,16 @@ class WeEngine {
 		if (empty($keywords)) {
 			return $result;
 		}
-		$modules = $rules = array();
-		foreach ($keywords as $row) {
-			if (empty($row['module'])) {
-				continue;
-			}
-			$modules[$row['module']] = $row['module'];
-			$rules[$row['module']][] = $row['rid'];
+		if (count($keywords) > 1) {
+			srand((float) microtime() * 10000000);
+			$index = array_rand($keywords);
+			$this->keyword = $keywords[$index];
+		} else {
+			$this->keyword = $keywords[0];
 		}
-		//处理匹配多个模块和规则的情况，目前算法是随机获取一条
-		srand((float) microtime() * 10000000);
-		$module = array_rand($modules);
-		$index = array_rand($rules[$module]);
-		$rid = $rules[$module][$index];
-		
 		$result = array(
-			'module' => $module,
-			'rule' => $rid,
+			'module' => $this->keyword['module'],
+			'rule' => $this->keyword['rid'],
 		);
 		return $result;
 	}
@@ -237,9 +231,20 @@ class WeEngine {
 				'module' => $this->response['module'],
 				'from_user' => $this->message['from'],
 				'rid' => $this->response['rule'],
+				'kid' => $this->keyword['id'],
 				'message' => $content,
 				'type' => $this->message['msgtype'],
 				'createtime' => TIMESTAMP,
+			));
+		}
+		$updateid = pdo_query("UPDATE ".tablename('stat_msg_rule')." SET hit = hit + 1, lastupdate = '".TIMESTAMP."' WHERE rid = :rid AND createtime = :createtime", array(':rid' => $this->response['rule'], ':createtime' => strtotime(date('Y-m-d'))));
+		if (empty($updateid)) {
+			pdo_insert('stat_msg_rule', array(
+				'weid' => $_W['weid'],
+				'rid' => $this->response['rule'],
+				'createtime' => strtotime(date('Y-m-d')),
+				'hit' => 1,
+				'lastupdate' => TIMESTAMP,
 			));
 		}
 	}

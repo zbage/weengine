@@ -43,7 +43,9 @@ if ($do == 'display') {
 		}	
 		
 	}
-	$rules = pdo_fetchall("SELECT name, id FROM ".tablename('rule')." WHERE id IN (".implode(',', $rids).")", array(), 'id');
+	if (!empty($rids)) {
+		$rules = pdo_fetchall("SELECT name, id FROM ".tablename('rule')." WHERE id IN (".implode(',', $rids).")", array(), 'id');
+	}
 	$total = pdo_fetchcolumn('SELECT COUNT(*) FROM ' . tablename('stat_msg_history') . " WHERE weid = '{$_W['weid']}'");
 	$pager = pagination($total, $pindex, $psize);
 	template('stat/history');
